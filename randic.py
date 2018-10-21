@@ -175,7 +175,7 @@ if __name__ == '__main__':
             used_words_index.append(word_indx)
             used_words_file.append(random_file)
             used_words_printable = [(str(used_words_index[i]) + ' ' + str(used_words_file[i]) + ' ') for i in range(len(used_words_file))]
-            list_to_file(used_words, 'a', used_words_printable)
+            list_to_file(used_words, 'w', used_words_printable)
             break
 
     print('\n\nRandom word: {}'.format(word))
