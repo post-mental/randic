@@ -1,7 +1,7 @@
-from time import time
-from random import randint
-from difflib import get_close_matches
 from datetime import datetime
+from difflib import get_close_matches
+from random import randint
+from time import time
 
 
 # appends current run date in 'datelog' file
@@ -81,7 +81,6 @@ def file_boundaries(alist, filerange):
 
 # creates files with certain incremental name
 def file_create(alist, outfile, startf, endf):
-    strt = time()
 
     print("[x] One or more files are missing...\n")
     print("[*] Creating files...")
@@ -90,8 +89,6 @@ def file_create(alist, outfile, startf, endf):
     for i in range(0, len(start)):
         file_splitter(alist, startf[i], endf[i], outfile + str(i+1))
         print('[*] File {0} of {1} created'.format(i+1, len(start)))
-
-    print('\n[@] file creation execution time: {}s'.format(time() - strt))
 
 
 def file_splitter(alist, startl, stopl, outfile):
@@ -124,9 +121,9 @@ def alts(alist, word_in_alist, indx, usd_flname):
 # print alts on screen
 def lst_ch(length, lst):
     if length:
-        print('\nΆλλες {0} λέξεις της ίδιας ομάδας: {1}'.format(length, lst[0]))
+        print('\nΆλλες λέξεις της ίδιας ομάδας: {}'.format(lst[0]))
         for i in range(1, length):
-            print('\t\t\t\t\t\t\t\t {0}'.format(lst[i], ''.join(str(lst).strip('[]\''))))
+            print('\t\t\t\t\t\t\t   {0}'.format(lst[i], ''.join(str(lst).strip('[]\''))))
 
     else:
         print('Δε βρέθηκαν παρόμοιες λέξεις...')
@@ -157,7 +154,7 @@ if __name__ == '__main__':
         file_create(dictionary, dic_split_filenames, start, end)
     else:
         start, end = file_boundaries(dictionary, no_of_dic_split)
-        print("\n[*] All files found...\n\n")
+        print("\n[*] All files found...")
 
     # pick random file
     random_file = rand_file(no_of_dic_split)
@@ -181,6 +178,6 @@ if __name__ == '__main__':
             list_to_file(used_words, 'a', used_words_printable)
             break
 
-    print('Random word: {}' .format(word))
+    print('\n\nRandom word: {}'.format(word))
     alts(dic_file_list, word, word_indx, used_words)
     print('\n\n[*] total execution time: {}s'.format(time() - timestamp0))
