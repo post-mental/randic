@@ -1,5 +1,5 @@
 from time import time
-from random import random
+from random import randint
 from difflib import get_close_matches
 from datetime import datetime
 
@@ -40,14 +40,21 @@ def list_to_file(filename, mode, alist):
 
 # pretty much a useless function
 def rand_file(no_of_files):
-    return random.randint(1, no_of_files)
+    return randint(1, no_of_files)
 
 
 # inputs a list, returns a random number 0 <= number <= lenlist
 def rand_word(inlist):
-    word_index = random.randint(1, len(inlist))
+    word_index = randint(1, len(inlist))
     word = inlist[word_index - 1]
     return word, word_index
+
+
+def used_checker():
+    try:
+        open(used_words, 'x')
+    except FileExistsError:
+        return False
 
 
 # check for files
@@ -55,7 +62,6 @@ def file_checker(filename, filerange):
     for index in range(0, filerange):
         try:
             open(filename + str(index+1), 'r', encoding='cp1253')
-            # print('File: {0} of {1} found'.format(index+1, filerange))
         except FileNotFoundError:
             return False
     return index+1 == filerange
@@ -140,6 +146,7 @@ if __name__ == '__main__':
     char_threshold = 2      # eliminate words equal to or less than x characters long from the dictionary
 
     date_log()
+    used_checker()
 
     dictionary = file_to_list(dic_filename, char_thold=int(char_threshold))
 
@@ -150,7 +157,7 @@ if __name__ == '__main__':
         file_create(dictionary, dic_split_filenames, start, end)
     else:
         start, end = file_boundaries(dictionary, no_of_dic_split)
-        print("\n[*] All files found...\n")
+        print("\n[*] All files found...\n\n")
 
     # pick random file
     random_file = rand_file(no_of_dic_split)
@@ -176,4 +183,4 @@ if __name__ == '__main__':
 
     print('Random word: {}' .format(word))
     alts(dic_file_list, word, word_indx, used_words)
-    print('\n[*] total execution time: {}s'.format(time() - timestamp0))
+    print('\n\n[*] total execution time: {}s'.format(time() - timestamp0))
