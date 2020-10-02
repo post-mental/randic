@@ -2,4 +2,5 @@ This is a concept program I wrote for my nephew, in order to motivate him learni
 
 
 #TODO
+
 remove used words and similar ones from the pool
